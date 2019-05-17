@@ -70,10 +70,10 @@ retrieves the client's synchronizer token from the server (SyncTokenProvider Con
 			function myCallback(resp){
 				var form = document.forms['moneyTransferenceForm'];
 				   // form.action = 'put your url here';
-				   var el = document.createElement("INPUT");
-				   el.type = "hidden";
-				   el.name = "hiddenTokenField";
-				   el.value = resp["syncToken"];
+				   var element = document.createElement("INPUT");
+				   element.type = "hidden";
+				   element.name = "hiddenTokenField";
+				   element.value = resp["syncToken"];
 				   form.appendChild(el);
 			}
 
