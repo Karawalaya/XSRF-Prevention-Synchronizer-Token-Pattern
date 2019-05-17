@@ -55,7 +55,6 @@ retrieves the client's synchronizer token from the server (SyncTokenProvider Con
 		<script type="text/javascript">
 			function callAjax(url, callback){
 			    var xmlhttp;
-			    // compatible with IE7+, Firefox, Chrome, Opera, Safari
 			    xmlhttp = new XMLHttpRequest();
 			    xmlhttp.responseType = 'json';
 			    xmlhttp.onreadystatechange = function(){
