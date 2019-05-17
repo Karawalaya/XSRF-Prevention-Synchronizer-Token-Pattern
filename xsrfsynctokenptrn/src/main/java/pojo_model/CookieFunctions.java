@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CookieFunctions {
 	
+	/**
+	 * This method is used to invalidate the existing session cookie in the browser.
+	 * @param response This is the first parameter to cookiesInvalidate method which is of type HttpServletResponse.
+	 * @return HttpServletResponse This returns the response with the overwritten cookie, with the same name as the 
+	 * existing one in the browser which is set to be destroyed as soon as the client browser receives them
+	 */
 	public static HttpServletResponse cookiesInvalidate(HttpServletResponse response) {
 		Cookie sessionCookieRemove = new Cookie("userSesID", "");
 		sessionCookieRemove.setMaxAge(0);
