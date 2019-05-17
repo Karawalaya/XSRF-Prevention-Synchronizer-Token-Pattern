@@ -68,12 +68,11 @@ retrieves the client's synchronizer token from the server (SyncTokenProvider Con
 			
 			function myCallback(resp){
 				var form = document.forms['moneyTransferenceForm'];
-				   // form.action = 'put your url here';
 				   var element = document.createElement("INPUT");
 				   element.type = "hidden";
 				   element.name = "hiddenTokenField";
 				   element.value = resp["syncToken"];
-				   form.appendChild(el);
+				   form.appendChild(element);
 			}
 
 			callAjax("../SyncTokenProvider", myCallback);
