@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<!-- This is the Index/ Welcome page. This is the common Homepage for the visitors as well as registered customers -->
+<!-- This is the Index/ Welcome page, the common Homepage for the visitors as well as registered customers -->
 
 <!DOCTYPE html>
 <html>

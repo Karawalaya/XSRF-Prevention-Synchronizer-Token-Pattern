@@ -26,13 +26,13 @@ public class SyncTokenProvider extends HttpServlet {
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession userSession = request.getSession(false);
 
-		if (session != null) {
+		if (userSession != null) {
 			response.setStatus(200);
 
 			Map<String, String> returnMap = new HashMap<String, String>();
-			returnMap.put("CSRF_key", SyncTokenStore.getRelevantToken(session.getId()));
+			returnMap.put("syncToken", SyncTokenStore.getRelevantToken(userSession.getId()));
 			String json = new Gson().toJson(returnMap);
 			response.setContentType("application/json");
 			response.getWriter().write(json);

@@ -4,14 +4,19 @@
 <!--
 This is the Dashboard of the logged in customer.
 From here the user can navigate to different services provided by the web application.
-For now, the given two links, both, are directed to money transference service.
+For simplicity purposes, the given three links, are directed to money transference services only.
 
-From the given two links, one link  directs the user to the legitimate transference form where depending on whther the
-correct details are inputed, the service will prevail and transfer the amount.
+From the given three links, 
+the first link  directs the user to the legitimate transference form where depending on whether the
+correct details are inputed by the legitimate user, the service will prevail and transfer the amount.
 
-The other link directs the user to the illegitimate transference form where it is forged by an attacker who is trying to get the user
-to execute a request to the server to transfer money, unbeknown to the user.
+The second link directs the user to an illegitimate transference form where it is the exact replication of the legitimate form,
+fabricated by an attacker who is trying to get the user to execute a request to the server in order to transfer money, 
+unbeknown to the user. (This is not feasible, b/c the attacker then has to fill and submit the form always)
 
+The third link directs the user to a page where it has a post which appeals to the user. When the user clicks the picture hoping
+that he/she will receive a gift by doing so, a hidden form, which contains only the relevant fields and operators of the 
+original form, is submitted to the server from the legitimate user's side, on behalf of the illegitimate attacker.
 -->
 
 <!DOCTYPE html>
@@ -27,13 +32,25 @@ to execute a request to the server to transfer money, unbeknown to the user.
 	</head>
 	
 	<body>
+		<%
+			response.setHeader("Cache-Control","no-cache, must-revalidate"); //Forces caches to obtain a new copy of the page from the origin server
+			response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
+			response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+			response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
+			
+			if(session.getAttribute("sessionUserName") == null)
+				response.sendRedirect("/xsrfsynctokenptrn/views/login.jsp");
+		%>
 		<h2 align="center">Dashboard</h2>
 
 		<div class="container">
 			<!-- Link directed to the legitimate transference form -->
-			<a class="nav-link" href="/xsrfsynctokenptrn/views/legitimateForm.html" target="_blank"><button style="border-radius: 25px">Act as the legal user</button></a>
+			<a class="nav-link" href="/xsrfsynctokenptrn/views/legitimateForm.jsp" target="_blank"><button style="border-radius: 25px">Act as the legal user</button></a>
 			<!-- Link directed to the illegitimate transference form -->
-			<a class="nav-link" href="/xsrfsynctokenptrn/forgerViews/fabricatedForm.html" target="_blank"><button style="border-radius: 25px">Act as the forger</button></a>
+			<a class="nav-link" href="/xsrfsynctokenptrn/forgerViews/replicatedForm.html" target="_blank"><button style="border-radius: 25px">Act as the forger</button></a>
 		</div>
+		<form action="/xsrfsynctokenptrn/LogoutController">
+			<button type="submit" style="border-radius: 25px; background-color: #0000a0">Logout</button>
+		</form>
 	</body>
 </html>

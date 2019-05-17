@@ -23,6 +23,12 @@
   	<description>Blah Blah Blah</description>
   	<servlet-class>controller_servlet.SyncTokenProvider</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LogoutController</servlet-name>
+  	<display-name>LogoutController</display-name>
+  	<description></description>
+  	<servlet-class>controller_servlet.LogoutController</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>LoginController</servlet-name>
@@ -35,6 +41,10 @@
   <servlet-mapping>
   	<servlet-name>SyncTokenProvider</servlet-name>
   	<url-pattern>/SyncTokenProvider</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LogoutController</servlet-name>
+  	<url-pattern>/LogoutController</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>

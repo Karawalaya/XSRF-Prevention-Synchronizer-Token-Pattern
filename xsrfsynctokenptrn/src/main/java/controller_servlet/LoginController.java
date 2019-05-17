@@ -13,43 +13,49 @@ import javax.servlet.http.HttpSession;
 
 import dao_service.LoginDao;
 import pojo_model.User;
+import pojo_model.CookieFunctions;
 import pojo_model.CookieGenerator;
 import pojo_model.SyncTokenGenerator;
 import pojo_model.SyncTokenStore;
 
 /**
- *
- *
+ * This LoginController is the Servlet designed to handle the login functionality.
+ * 
+ * This controller checks whether the user credentials are valid, sets the session parameters, generates a unique
+ * token, stores that token against the user's session id in memory, creates a cookie - using the session id, 
+ * sets the cookie to the response and sends it to the client browser.
+ * 
+ * At the end of the post function, 
+ * if the user is authenticated, he/she is directed to the dashboard.jsp,
+ * else, he/she is directed to the login.jsp.
+ * 
+ * @author Karawalaya - Isuru Samarasekara
+ * @since 2019-05-17
  */
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-
 	/**
-	 *
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 *
+	 * Post method implementation to handle data sent via the method 'post'.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
 		User user = new User(request.getParameter("username"), request.getParameter("password"));
 
 		if (LoginDao.isValid(user)) {
-			String sessionID = session.getId();
+			HttpSession userSession = request.getSession(true);
+			userSession.setAttribute("sessionUserName", user.getUsername());
 			
-			String xsrfSyncToken = SyncTokenGenerator.generateSyncToken(sessionID);
-			SyncTokenStore.addToTokenStore(sessionID, xsrfSyncToken);
-			response.addCookie(CookieGenerator.SESSION_ID_COOKIE.apply(session));
+			String userSessionID = userSession.getId();
+			
+			String xsrfSyncToken = SyncTokenGenerator.generateSyncToken(userSessionID);
+			SyncTokenStore.addToTokenStore(userSessionID, xsrfSyncToken);
+			
+			response.addCookie(CookieGenerator.SESSION_ID_COOKIE.apply(userSession));
 
 			response.sendRedirect("/xsrfsynctokenptrn/views/dashboard.jsp");
 		}
 	    else {
-	    	session.invalidate();
+	    	response = CookieFunctions.cookiesInvalidate(response);
 	    	
 			PrintWriter out = response.getWriter();
 			out.println("<script type=\"text/javascript\">");
