@@ -8,7 +8,8 @@ Here contains the form which is presented by the bank itself to the legitimate u
 to transfer money to another account.
 
 Here, the XSRF mitigation is in place, where there is a Javascript code, which using an Ajax call requests and 
-retrieves the client's synchronizer token from the server and binds it to the form as a hidden field and is sent to the server.
+retrieves the client's synchronizer token from the server (SyncTokenProvider Controller) and binds it to the form as a
+ hidden field which then is sent to the server.
 -->
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@ retrieves the client's synchronizer token from the server and binds it to the fo
 			response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
 			
 			if(session.getAttribute("sessionUserName") == null)
-				response.sendRedirect("/xsrfdoublesubmitcookie/views/login.jsp");
+				response.sendRedirect("/xsrfsynctokenptrn/views/login.jsp");
 		%>
 		<h2 align="center">Fill and Submit the below Money Transference Form!</h2>
 		<!-- 
@@ -67,11 +68,9 @@ retrieves the client's synchronizer token from the server and binds it to the fo
 			}
 			
 			function myCallback(resp){
-				console.log(resp["syncToken"]);
-				
 				var form = document.forms['moneyTransferenceForm'];
 				   // form.action = 'put your url here';
-				   var el = document.createElement("input");
+				   var el = document.createElement("INPUT");
 				   el.type = "hidden";
 				   el.name = "hiddenTokenField";
 				   el.value = resp["syncToken"];

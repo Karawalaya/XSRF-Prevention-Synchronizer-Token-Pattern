@@ -22,7 +22,7 @@ import pojo_model.SyncTokenStore;
  * This LoginController is the Servlet designed to handle the login functionality.
  * 
  * This controller checks whether the user credentials are valid, sets the session parameters, generates a unique
- * token, stores that token against the user's session id in memory, creates a cookie - using the session id, 
+ * token, stores that token against the user's session id in-memory, creates a cookie - using the session id, 
  * sets the cookie to the response and sends it to the client browser.
  * 
  * At the end of the post function, 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * This POJO (Plain Old Java Object), or model object, is used to store 'synchronizer tokens' against the user's session id, 
- * as well as retrieve a particular token based on the user's session id.
+ * as well as to retrieve a particular token based on the user's session id.
  * 
  * @author Karawalaya - Isuru Samarasekara
  * @since 2019-05-17

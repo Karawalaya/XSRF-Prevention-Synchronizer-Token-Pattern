@@ -17,7 +17,7 @@ import pojo_model.CookieFunctions;
  * Also, when the user logs out, the session cookie saved at the client browser is also destroyed by overwriting it to 
  * expire as soon as it is set again.
  * 
- * At the end of the get function the use is directed to the login.jsp.
+ * At the end of the get function the user is directed to the login.jsp.
  * 
  * @author Karawalaya - Isuru Samarasekara
  * @since 2019-05-17
@@ -26,8 +26,9 @@ public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 *
-	 *
+	 * When the logout button is clicked by the user, the functionality is handled here.
+	 * The session cookie at the client browser is destroyed, the session attributes are removed and the session 
+	 * itself is invalidated.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CookieFunctions.cookiesInvalidate(response);

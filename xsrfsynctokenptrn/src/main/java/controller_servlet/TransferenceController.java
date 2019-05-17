@@ -16,13 +16,12 @@ import pojo_model.SyncTokenStore;
 /**
  * * This TransferenceController is the Servlet designed to validate a transaction.
  * 
- * This controller, with the help of the CookieFunctions.java class, validates whether the form contained hidden token is equal
- * to the value of the cookie, also sent by the browser, with the name 'syncToken' - if there is a cookie like that.
+ * This controller, with the help of the CookieFunctions.java class, validates whether the form-contained hidden synchronizer 
+ * token is equal to the token held by the server, which is retrieved from the SyncTokenStore using the session id of the user.
  * 
- * At the end of the post function, 
- * if the token is validated, the transaction is carried out (represented by the 'Successfully Transfered!') success message, and 
- * else if the token is not similar to value in a cookie named 'syncToken' (if there is any), then the transaction is not carried out 
- * (represented by the 'Transfer Unsuccessful!' error message)
+ * If the token is validated, the transaction is carried out (represented by the 'Successfully Transfered!') success message, and 
+ * else if the token is not similar to token stored in the SyncTokenStore against the user's session id, then the 
+ * transaction is not carried out (represented by the 'Transfer Unsuccessful!' error message)
  * 
  * @author Karawalaya - Isuru Samarasekara
  * @since 2019-05-17

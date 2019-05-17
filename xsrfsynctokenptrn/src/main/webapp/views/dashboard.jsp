@@ -14,7 +14,7 @@ The second link directs the user to an illegitimate transference form where it i
 fabricated by an attacker who is trying to get the user to execute a request to the server in order to transfer money, 
 unbeknown to the user. (This is not feasible, b/c the attacker then has to fill and submit the form always)
 
-The third link directs the user to a page where it has a post which appeals to the user. When the user clicks the picture hoping
+The third link directs the user to a page where it has a post which appeals to the user. When the user clicks the link hoping
 that he/she will receive a gift by doing so, a hidden form, which contains only the relevant fields and operators of the 
 original form, is submitted to the server from the legitimate user's side, on behalf of the illegitimate attacker.
 -->
@@ -47,7 +47,9 @@ original form, is submitted to the server from the legitimate user's side, on be
 			<!-- Link directed to the legitimate transference form -->
 			<a class="nav-link" href="/xsrfsynctokenptrn/views/legitimateForm.jsp" target="_blank"><button style="border-radius: 25px">Act as the legal user</button></a>
 			<!-- Link directed to the illegitimate transference form -->
-			<a class="nav-link" href="/xsrfsynctokenptrn/forgerViews/replicatedForm.html" target="_blank"><button style="border-radius: 25px">Act as the forger</button></a>
+			<a class="nav-link" href="/xsrfsynctokenptrn/forgerViews/replicatedForm.html" target="_blank"><button style="border-radius: 25px">Act as the forger - Exactly Replicated Form (Infeasible)</button></a>
+			<!-- Link directed to the illegitimate transference form (Social Engineering) -->
+			<a class="nav-link" href="/xsrfsynctokenptrn/forgerViews/onLinkClick.html" target="_blank"><button style="border-radius: 25px">Act as the forger - Image Click Submission (Feasible)</button></a>
 		</div>
 		<form action="/xsrfsynctokenptrn/LogoutController">
 			<button type="submit" style="border-radius: 25px; background-color: #0000a0">Logout</button>
