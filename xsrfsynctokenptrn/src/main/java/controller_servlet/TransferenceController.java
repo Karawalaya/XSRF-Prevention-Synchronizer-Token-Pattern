@@ -35,7 +35,7 @@ public class TransferenceController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession userSession = request.getSession(false);
 		String sessionUserName = (String) userSession.getAttribute("sessionUserName");
-		
+
 		if (null == sessionUserName) {
 			PrintWriter out = response.getWriter();
 			out.println("<script type=\"text/javascript\">");
@@ -46,26 +46,30 @@ public class TransferenceController extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		String clientHiddenToken = request.getParameter("hiddenTokenField");
-		String serverSyncToken = SyncTokenStore.getRelevantToken(userSession.getId());
-
-		if (serverSyncToken.equals(clientHiddenToken)) {
-			response.getWriter().append("Sucessfully Transfered!");
-		}
-		else {
-//			response = CookieFunctions.cookiesInvalidate(response);
-//			userSession.removeAttribute("sessionUserName");
-//			userSession.invalidate();
-			
-//			PrintWriter out = response.getWriter();
-//			out.println("<script type=\"text/javascript\">");
-//			out.println("alert('Transfer Unsuccessfull!');");
-//			out.println("location='/xsrfsynctokenptrn/views/login.jsp';");
-//			out.println("</script>");
-			
-//			response.sendRedirect("/xsrfsynctokenptrn/views/login.jsp");
-			
-			response.getWriter().append("Transfer Unsuccessful!");
+		if(CookieFunctions.sessionValidationBySessionCookie(request)) {
+			String clientHiddenToken = request.getParameter("hiddenTokenField");
+			String serverSyncToken = SyncTokenStore.getRelevantToken(CookieFunctions.getSessionIdFromSessionCookie(request));
+			//No need to cover for returning null here, because the previous if condition covers it alltogether
+	
+			if (serverSyncToken.equals(clientHiddenToken)) {
+				response.getWriter().append("Sucessfully Transfered!");
+			} else {
+	//			response = CookieFunctions.cookiesInvalidate(response);
+	//			userSession.removeAttribute("sessionUserName");
+	//			userSession.invalidate();
+				
+	//			PrintWriter out = response.getWriter();
+	//			out.println("<script type=\"text/javascript\">");
+	//			out.println("alert('Transfer Unsuccessfull!');");
+	//			out.println("location='/xsrfsynctokenptrn/views/login.jsp';");
+	//			out.println("</script>");
+				
+	//			response.sendRedirect("/xsrfsynctokenptrn/views/login.jsp");
+				
+				response.getWriter().append("Transfer Unsuccessful!");
+			}
+		} else {
+			response.getWriter().append("Session Validation using Session Cookie Failed!");
 		}
 	}
 }

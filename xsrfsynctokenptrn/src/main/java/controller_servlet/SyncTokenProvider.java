@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import pojo_model.CookieFunctions;
 import pojo_model.SyncTokenStore;
 
 /**
@@ -48,13 +49,17 @@ public class SyncTokenProvider extends HttpServlet {
 		}
 		
 		if (userSession != null) {
-			response.setStatus(200);
-
-			Map<String, String> returnMap = new HashMap<String, String>();
-			returnMap.put("syncToken", SyncTokenStore.getRelevantToken(userSession.getId()));
-			String json = new Gson().toJson(returnMap);
-			response.setContentType("application/json");
-			response.getWriter().write(json);
+			if(CookieFunctions.sessionValidationBySessionCookie(request)) {
+				response.setStatus(200);
+	
+				Map<String, String> returnMap = new HashMap<String, String>();
+				returnMap.put("syncToken", SyncTokenStore.getRelevantToken(userSession.getId()));
+				String json = new Gson().toJson(returnMap);
+				response.setContentType("application/json");
+				response.getWriter().write(json);
+			} else {
+				response.getWriter().append("Session Validation using Session Cookie Failed!");
+			}
 	    }
 	}
 }

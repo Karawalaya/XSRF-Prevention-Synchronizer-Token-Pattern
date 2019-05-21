@@ -44,7 +44,6 @@ public class LoginController extends HttpServlet {
 		if (LoginDao.isValid(user)) {
 			HttpSession userSession = request.getSession(true);
 			userSession.setAttribute("sessionUserName", user.getUsername());
-			
 			String userSessionID = userSession.getId();
 			
 			String xsrfSyncToken = SyncTokenGenerator.generateSyncToken(userSessionID);
